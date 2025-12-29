@@ -1,0 +1,13 @@
+.*
+!.gitignore
+!.dockerignore
+!.python-version
+*.gif
+*.jpeg
+*.jpg
+*.png
+*.sqlite3
+node_modules/
+dist/
+build/
+__pycache__/
