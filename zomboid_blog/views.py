@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.views.generic import DetailView
 
-# Create your views here.
+
+class PostDetailView(DetailView):
+    content_type = "text/html"
+    http_method_names = ["get"]
+    template_name = "zomboid_blog/posts/detail.html"

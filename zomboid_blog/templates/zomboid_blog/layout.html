@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="{% static 'zomboid_blog/css/output.css' %}">
+    <script src="{% static 'zomboid_blog/js/htmx.min.js' %}" defer></script>
+</head>
+<body>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+</body>
+</html>
