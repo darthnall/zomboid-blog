@@ -3,6 +3,6 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.Post)
-class PostAdmin(admin.ModelAdmin):
+@admin.register(models.BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
     pass

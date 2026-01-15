@@ -1,16 +1,20 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>{{ title }}</title>
+    <title>{% block title %}{% endblock title %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="{% static 'zomboid_blog/css/output.css' %}">
     <script src="{% static 'zomboid_blog/js/htmx.min.js' %}" defer></script>
 </head>
-<body>
-    <main>
-        {% block content %}
-        {% endblock content %}
+<body class="bg-gray-700 px-8 h-dvh text-gray-200 md:px-16">
+    <main class="p-8 h-full bg-gray-900 border-gray-800 border-r-2 border-l-2">
+        <h2 class="font-bold text-gray-100 text-2xl md:text-4xl">Zomboid Blog</h2>
+        <div class="py-8">
+            {% block content %}
+            {% endblock content %}
+        </div>
     </main>
 </body>
 </html>
