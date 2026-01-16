@@ -1,8 +1,16 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+
+class Author(models.Model):
+    """Battle-hardened Kentuckian survior."""
+
+    name = models.CharField(max_length=64)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class BlogPost(models.Model):
@@ -13,8 +21,8 @@ class BlogPost(models.Model):
         PRIVATE = "private", _("Private")
         HIDDEN = "hidden", _("Hidden")
 
-    user = models.ForeignKey(
-        get_user_model(), on_delete=models.PROTECT, related_name="posts"
+    author = models.ForeignKey(
+        "zomboid_blog.Author", on_delete=models.CASCADE, related_name="posts"
     )
     title = models.CharField(max_length=64)
     subtitle = models.CharField(blank=True, max_length=128)
@@ -23,7 +31,7 @@ class BlogPost(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True)
     status = models.CharField(
-        choices=BlogPostStatus.choices, default=BlogPostStatus.HIDDEN
+        choices=BlogPostStatus.choices, default=BlogPostStatus.PUBLIC
     )
 
     def __str__(self) -> str:
