@@ -1,5 +1,6 @@
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateResponseMixin
+from django.db.models import QuerySet
 
 from . import models
 
@@ -35,3 +36,7 @@ class BlogPostListView(HtmxTemplateResponseMixin, ListView):
     ordering = "-pub_date"
     paginate_by = 50
     queryset = models.BlogPost.objects.filter(status="public")
+
+    def get_queryset(self) -> QuerySet:
+        qs = super().get_queryset()
+        return qs

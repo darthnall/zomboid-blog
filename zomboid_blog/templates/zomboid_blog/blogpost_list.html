@@ -1,19 +1,35 @@
 {% extends 'zomboid_blog/layout.html' %}
-{% block title %}Zomboid Blog{% endblock title %}
+{% load static %}
+{% block title %}Twiggy's Blog{% endblock title %}
 {% block content %}
 {% partialdef partial inline %}
-<section id="posts" class="@container flex flex-col gap-8">
+<section id="posts" class="@container flex flex-col gap-16">
     {% for post in page_obj %}
-    <a class="group p-4 flex flex-col gap-4 border rounded bg-gray-700 transition-colors ease-in-out duration-300 hover:bg-gray-600" href="{{ post.get_absolute_url }}">
-        <div class="flex flex-col">
-            <h3 class="font-semibold">{{ post.title }}</h3>
-            {% if post.subtitle %}<p class="text-gray-300">{{ post.subtitle }}</p>{% endif %}
+    <a class="group relative p-4 flex flex-col gap-4 rounded bg-gray-800 transition-colors ease-in-out duration-300 hover:bg-gray-600" href="{{ post.get_absolute_url }}">
+        <div class="p-2 h-fit absolute bottom-0 right-0 bg-gray-200 rounded-br text-gray-800 md:top-0 md:right-0 md:rounded-tr md:rounded-br-none">
+            <div class="flex items-center gap-2">
+                <img class="size-8" src="{% static 'zomboid_blog/img/Mood_Happy.png' %}"/>
+                <p class="font-bold uppercase">New!</p>
+            </div>
         </div>
-        <div class="flex gap-2 items-center text-gray-400 transition-colors ease-in-out duration-300 group-hover:text-gray-300">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-            </svg>
-            <p class="text-sm">{{ post.pub_date }}</p>
+        <div class="flex flex-col">
+            <h3 class="text-lg font-semibold">{{ post.title }}</h3>
+            {% if post.subtitle %}<p class="text-gray-300 hidden md:flex">{{ post.subtitle }}</p>{% endif %}
+        </div>
+        <div class="flex flex-col gap-4 @md:flex-row">
+            <div class="text-sm flex gap-2 items-center text-gray-400 transition-colors ease-in-out duration-300 group-hover:text-gray-300">
+                {% if post.author.pfp %}
+                {% else %}
+                <img class="size-8" src="{% static 'zomboid_blog/img/Mood_Bored.png' %}"/>
+                {% endif %}
+                <p>{{ post.author }}</p>
+            </div>
+            <div class="text-sm flex gap-2 items-center text-gray-400 transition-colors ease-in-out duration-300 group-hover:text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                </svg>
+                <p>{{ post.pub_date }}</p>
+            </div>
         </div>
     </a>
     {% empty %}

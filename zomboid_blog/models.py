@@ -4,6 +4,29 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
+class Moodle(models.TextChoices):
+    ANGRY = "Angry", _("Angry")
+    BORED = "Bored", _("Bored")
+    CONCENTRATING = "Concentrating", _("Concentrating")
+    DEAD = "Dead", _("Dead")
+    DISCOMFORT = "Discomfort", _("Discomfort")
+    DIZZY = "Dizzy", _("Dizzy")
+    DRUNK = "Drunk", _("Drunk")
+    EXHAUSTED = "Exhausted", _("Exhausted")
+    HAPPY = "Happy", _("Happy")
+    HUNGOVER = "Hungover", _("Hungover")
+    ILL = "Ill", _("Ill")
+    NAUSEOUS = "Nauseous", _("Nauseous")
+    NOXIOUS_SMELL = "NoxiousSmell", _("Noxious Smell")
+    PAINED = "Pained", _("Pained")
+    PANICKED = "Panicked", _("Panicked")
+    SAD = "Sad", _("Sad")
+    SCARED = "Scared", _("Scared")
+    SLEEPY = "Sleepy", _("Sleepy")
+    STRESSED = "Stressed", _("Stressed")
+    ZOMBIFIED = "Zombified", _("Zombified")
+
+
 class Author(models.Model):
     """Battle-hardened Kentuckian survior."""
 
@@ -26,6 +49,7 @@ class BlogPost(models.Model):
     )
     title = models.CharField(max_length=64)
     subtitle = models.CharField(blank=True, max_length=128)
+    mood = models.CharField(choices=Moodle.choices, default=Moodle.BORED)
     content = models.TextField(blank=True)
     slug = models.SlugField(blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
