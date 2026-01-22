@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, ListView
 from django.db.models import QuerySet
 
-from . import models, mixins
+from . import mixins, models
 
 PUBLIC = models.BlogPost.BlogPostStatus.PUBLIC
 
