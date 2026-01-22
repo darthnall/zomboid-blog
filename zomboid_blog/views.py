@@ -1,41 +1,26 @@
 from django.views.generic import DetailView, ListView
-from django.views.generic.base import TemplateResponseMixin
 from django.db.models import QuerySet
 
-from . import models
+from . import models, mixins
+
+PUBLIC = models.BlogPost.BlogPostStatus.PUBLIC
 
 
-class HtmxTemplateResponseMixin(TemplateResponseMixin):
-    partial_template_name = None
-
-    def render_to_response(self, context, **response_kwargs):
-        htmx_request = self.request.headers.get("HX-Request")
-        boosted = self.request.headers.get("HX-Boosted")
-
-        if htmx_request and not boosted:
-            self.template_name = (
-                self.partial_template_name
-                if self.partial_template_name is not None
-                else f"{self.template_name}#partial"
-            )
-        return super().render_to_response(context, **response_kwargs)
-
-
-class BlogPostDetailView(HtmxTemplateResponseMixin, DetailView):
+class BlogPostDetailView(mixins.HtmxTemplateResponseMixin, DetailView):
     content_type = "text/html"
     http_method_names = ["get"]
     model = models.BlogPost
-    queryset = models.BlogPost.objects.filter(status="public")
+    queryset = models.BlogPost.objects.filter(status=PUBLIC)
 
 
-class BlogPostListView(HtmxTemplateResponseMixin, ListView):
+class BlogPostListView(mixins.HtmxTemplateResponseMixin, ListView):
     allow_empty = True
     content_type = "text/html"
     http_method_names = ["get"]
     model = models.BlogPost
     ordering = "-pub_date"
     paginate_by = 50
-    queryset = models.BlogPost.objects.filter(status="public")
+    queryset = models.BlogPost.objects.filter(status=PUBLIC)
 
     def get_queryset(self) -> QuerySet:
         qs = super().get_queryset()
