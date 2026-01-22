@@ -1,0 +1,7 @@
+{% extends "zomboid_blog/layout.html" %}
+{% block title %}Twiggy's Blog{% endblock title %}
+{% block content %}
+{% partialdef partial inline %}
+<div class="@container flex flex-col gap-16" hx-get="{% url 'blogpost list' %}" hx-trigger="load once"></div>
+{% endpartialdef partial %}
+{% endblock content %}
